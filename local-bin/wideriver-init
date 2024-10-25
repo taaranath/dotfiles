@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+#start the wideriver layout with configureation 
+#written for acheving a clean river init file
+
+wideriver \
+	--layout left \
+	--layout-alt monocle \
+	--stack dwindle \
+	--ratio-master 0.5 \
+	--count-wide-left 2 \
+	--ratio-wide 0.5 \
+	--smart-gaps \
+	--inner-gaps 7 \
+	--outer-gaps 7 \
+	--border-width 4 \
+	--border-color-focused 0xf19ec2 \
+	--border-color-unfocused 0x777696 \

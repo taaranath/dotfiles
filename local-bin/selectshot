@@ -1,0 +1,8 @@
+#!/bin/bash
+#screenshot utility for keybinding
+#tools used: grim, slurp
+name=$(date +'%F-%H-%M-%S_grim.png')
+grim -g "$(slurp)" ~/Pictures/Screenshots/$name
+dunstify \
+	-t 3000 \
+	"ScreenShot Saved"

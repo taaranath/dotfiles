@@ -1,0 +1,138 @@
+* {
+  border: none;
+  font-size: 15px;
+  border-radius: 0;
+  min-height: 25px;
+  margin: 0 0px;
+}
+
+window {
+  margin-top: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+window#waybar{
+  background: transparent;
+}
+
+#tags {
+  margin: 3px 1px 0px 1px;
+  }
+#tags button {
+  font-family: Iosevka Slab;
+  background: rgba(0, 0, 0, 0.7);
+  color: #BDE3ED;
+  border-radius: 0px;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#tags button:hover {
+  font-family: Iosevka Slab;
+  box-shadow: inset 0 -4px maroon;
+}
+
+#tags button.focused {
+  font-family: Iosevka Slab;
+  box-shadow: inset 0 -4px grey;
+}
+
+/*#tags button.urgent {
+  font-family: Iosevka Slab;
+  background-color: #3F291A;
+}
+*/
+#mode {
+  font-family: Iosevka Slab;
+  background-color: #151515;
+  border-bottom: 1px solid #ffffff;
+}
+
+#tray,
+#clock,
+#backlight,
+#pulseaudio,
+#mode,
+#network,
+#memory {
+  font-family: Iosevka Semibold;
+  color: #BDE3ED;
+  padding: 0 10px;
+  background: rgba(0, 0, 0, 0.7);
+  margin: 3px 3px 0px 3px;
+  border-radius: 3px 3px 0px 0px;
+}
+
+#clock {
+  color: #BDE3ED;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+#custom-dateJP,
+#custom-timeJP,
+#custom-dayJP {
+  color: #BDE3ED;
+  background: rgba(0, 0, 0, 0.7);
+  margin: 3px 3px 0px 3px;
+  padding: 0px 5px;
+  border-radius: 3px 3px 0px 0px;
+}
+
+#custom-power {
+  color: #000000;
+  background: #FFC8D2;
+  margin: 3px 3px 0px 3px;
+  padding: 0px 7px;
+  box-shadow: inset 0 -4px #363131;
+  border-radius: 3px 3px 0px 0px;
+  }
+
+#network.disconnected {
+  font-family: Iosevka Semibold;
+  color: #FFA699;
+}
+
+#pulseaudio.muted {
+  font-family: Iosevka Semibold;
+  color: #FFA699;
+}
+
+#window {
+  color: #BDE3ED;
+}
+
+#custom-power button {
+  padding: 0 30px;
+}
+
+#custom-dayJP {
+  box-shadow: inset 0 -4px #FFC8D2;
+}
+
+#custom-dateJP{
+  box-shadow: inset 0 -4px #A4A0E6;
+  
+}
+#custom-timeJP{
+  box-shadow: inset 0 -4px #CBAE80;
+}
+
+#tray {
+  box-shadow: inset 0 -4px #FFC8D2;
+}
+
+#network{
+  box-shadow: inset 0 -4px #57936E;
+}
+
+#pulseaudio{
+  box-shadow: inset 0 -4px #A4A0E6;
+}
+
+#memory{
+  box-shadow: inset 0 -4px #CBAE80;
+}
+
+#backlight{
+  box-shadow: inset 0 -4px #FFC8D2;
+}

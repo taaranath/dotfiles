@@ -1,0 +1,117 @@
+#!/bin/sh
+
+menu="~/.config/rofi/launchers/type-3/launcher.sh"
+run="~/.config/rofi/launchers/type-6/run.sh"
+fileManager="pcmanfm"
+## layoutManager ##
+
+#### Layout Bindings ####
+riverctl map  normal Super Q close
+riverctl map normal Super+Shift Return zoom
+riverctl map normal Super F send-layout-cmd wideriver "--layout-toggle"
+riverctl map normal Super+Shift F toggle-float
+riverctl map normal Super H focus-view left
+riverctl map normal Super J focus-view down
+riverctl map normal Super K focus-view up
+riverctl map normal Super L focus-view right
+riverctl map normal Super+Shift H swap left
+riverctl map normal Super+Shift J swap down
+riverctl map normal Super+Shift K swap up
+riverctl map normal Super+Shift L swap right
+riverctl map normal Control+Shift H snap left
+riverctl map normal Control+Shift J snap down
+riverctl map normal Control+Shift K snap up
+riverctl map normal Control+Shift L snap right
+
+riverctl map normal Super Left send-layout-cmd wideriver "--ratio -0.05"
+riverctl map normal Super Right send-layout-cmd wideriver "--ratio +0.05"
+
+riverctl map normal Super+Alt R spawn "${XDG_CONFIG_HOME}/river/init >/dev/null && notify-send 'River' 'Refreshed'"
+
+## User Script Bindings ##
+riverctl map -repeat normal Super Return spawn "$TERMINAL"
+riverctl map -repeat normal Super R spawn "$run"
+riverctl map -repeat normal Super D spawn "$menu"
+riverctl map -repeat normal Super W spawn "$BROWSER"
+riverctl map -repeat normal Super E spawn "$fileManager"
+riverctl map normal Super Z spawn "wlsunset -T 4100"
+riverctl map normal Super X spawn "pkill wlsunset"
+riverctl map normal None Print spawn "selectshot"
+riverctl map normal Shift Print spawn "saveshot"
+riverctl map normal Super+Shift S spawn "copyshot"
+riverctl map normal Super Backspace spawn "pkill wlogout || wlogout"
+riverctl map normal Super+Shift V spawn "cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+
+for mode in normal locked; do
+	riverctl map -repeat $mode Alt Equal spawn "brightness 1"
+	riverctl map -repeat $mode Alt Minus spawn "brightness 0"
+
+
+	riverctl map -repeat $mode None XF86AudioRaiseVolume spawn "volume 1"
+	riverctl map -repeat $mode None XF86AudioLowerVolume spawn "volume 0"
+	riverctl map $mode None XF86AudioMute spawn "volume mute"
+	#riverctl map -repeat $mode None XF86MonBrightnessUp spawn "brightnessctl -qe s +10%"
+	#riverctl map -repeat $mode None XF86MonBrightnessDown spawn "brightnessctl -qe s 10%-"
+
+	#riverctl map $mode None XF86AudioPlay spawn "mpc -q toggle & pkill -RTMIN+1 waybar"
+	#riverctl map $mode None XF86AudioPrev spawn "mpc -q prev & pkill -RTMIN+1 waybar"
+	#riverctl map $mode None XF86AudioNext spawn "mpc -q next & pkill -RTMIN+1 waybar"
+done
+
+### tags/workspaces ###
+
+for i in $(seq 1 9); do
+	tags=$((1 << (i - 1)))
+
+	# Super+[1-9] to focus tag [0-8]
+	riverctl map normal Super "$i" set-focused-tags $tags
+
+	# Super+Shift+[1-9] to tag focused view with tag [0-8]
+	riverctl map normal Super+Shift "$i" set-view-tags $tags
+
+	# Super+Control+[1-9] to toggle focus of tag [0-8]
+	riverctl map normal Super+Control "$i" toggle-focused-tags $tags
+
+	# Super+Shift+Control+[1-9] to toggle tag [0-8] of focused view
+	riverctl map normal Super+Shift+Control "$i" toggle-view-tags $tags
+done
+
+
+riverctl keyboard-layout -options 'caps:ctrl_modifier' 'us'
+#riverctl set-repeat 50 200
+
+touchpad="pointer-2-7-SynPS/2_Synaptics_TouchPad"
+riverctl input $touchpad tap enabled
+#riverctl focus-follows-cursor normal
+
+riverctl rule-add ssd
+riverctl background-color "0x1A1B26"
+riverctl border-color-focused "0x737AA2"
+riverctl border-color-unfocused "0x665C54"
+riverctl border-width 4
+
+riverctl default-layout wideriver
+riverctl default-attach-mode bottom
+#riverctl map normal Super+Alt H send-layout-cmd rivertile "main-count +1"
+#riverctl map normal Super+Alt L send-layout-cmd rivertile "main-count -1"
+
+
+
+gsettings set "org.gnome.desktop.interface" gtk-theme "Fluent-grey-Dark"
+gsettings set "org.gnome.desktop.interface" icon-theme "Tela-circle-grey-dark"
+
+dbus-update-activation-environment \
+	SEATD_SOCK \
+	WAYLAND_DISPLAY \
+	XDG_CURRENT_DESKTOP=river
+
+## Autostart ##
+riverctl spawn "pipewire"
+riverctl spawn "waybar"
+riverctl spawn "~/.azotebg"
+riverctl spawn "fcitx5 -d"
+riverctl spawn "syncthing serve --no-browser --logfile=default"
+riverctl spawn "udiskie"
+riverctl spawn "wideriver-init"
+riverctl spawn "wl-paste --type text --watch cliphist store"
+riverctl spawn "wl-paste --type image --watch cliphist store"

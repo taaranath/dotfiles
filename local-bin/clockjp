@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+weekday=$(date +'%w')
+day=$(date +'%d')
+month=$(date +'%0m')
+hour=$(date +'%H')
+minute=$(date +'%M')
+dayJP=$(day2JP $weekday)
+#echo "$dayJP$day日$month月$hour時$minute分"
+
+case "$1" in 
+	day) echo $dayJP;;
+	date) echo "$month月$day日";;
+	time) echo "$hour時$minute分";;
+esac

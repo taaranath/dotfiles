@@ -1,0 +1,86 @@
+
+{
+
+// This defines the global layout of the bar
+    "layer": "top",
+    "height": 25,
+    "modules-left": ["river/tags"],
+    "modules-center": ["custom/dayJP", "custom/dateJP", "custom/timeJP"],
+    "modules-right": ["tray", "network", "pulseaudio", "memory", "backlight", "custom/power"],
+
+// Here starts the configuration of every module
+    "river/mode": {
+        "format": " {}"
+    },
+    "river/tags": {
+        "num-tags": 5,
+        "tag-labels": ["一", "二", "三", "四", "五"]
+    },
+    "tray": {
+        "spacing": 10
+    },
+    "clock": {
+        "timezone": "Asia/Kathmandu",
+        "format": " {:%A %d日%B %H時%M分}",
+        //"format": " {:%a %b %d %Y | %H:%M}",
+        "format-alt": " {:%A %B %d %Y (%V) | %r}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "calendar-weeks-pos": "right",
+        "today-format": "<span color='#f38ba8'><b><u>{}</u></b></span>",
+        "format-calendar": "<span color='#f2cdcd'><b>{}</b></span>",
+        "format-calendar-weeks": "<span color='#94e2d5'><b>W{:%U}</b></span>",
+        "format-calendar-weekdays": "<span color='#f9e2af'><b>{}</b></span>",
+        "interval": 60
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "backlight": {
+        "format": "{icon}{percent}%",
+        "scroll-step": 5,
+        "format-icons": ["󰃞 ","󰃟 ", "󰃠 "]
+    },
+    "network": {
+    	"format": "{ifname}",
+	    "format-ethernet": "󰈀 {ifname}",
+        "format-wifi": "  {essid}",
+	"format-disconnected": "Disconnected"
+    },
+    "pulseaudio": {
+		"tooltip": false,
+		"scroll-step": 5,
+		"format": "{icon} {volume}%",
+		"format-muted": "󰝟 {volume}%",
+		"on-click":"pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-right":"pavucontrol",
+		"format-icons": {
+			"default": ["󰕿", "", " "]
+		}
+	},
+    "memory": {
+        "format": "󰍛 {icon}{percentage}%",
+        "on-click": "kitty -e htop",
+        "format-icons": {
+            "default": ["","","   "]
+        }
+    },
+    "custom/power":{
+	"format": "中止",
+	"on-click": "wlogout"
+    },
+    "custom/dayJP":{
+	"exec": "clockjp day"
+    },
+    "custom/dateJP": {
+	"exec": "clockjp date"
+    },
+    "custom/timeJP": {
+	"exec": "clockjp time",
+	"interval": 60
+    }
+       
+}
